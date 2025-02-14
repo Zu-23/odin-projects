@@ -1,0 +1,11 @@
+.input-container
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container .align-trash
+{
+    display: flex;
+    justify-content: space-between;
+}

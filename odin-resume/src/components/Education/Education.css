@@ -1,0 +1,16 @@
+.education
+{
+    display: flex;
+    flex-direction: column;
+    width: 15rem;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 0.3rem;
+    padding: 1rem;
+}
+
+.edu-form
+{
+    display: flex;
+    flex-direction: column;
+    gap:2rem;
+}
