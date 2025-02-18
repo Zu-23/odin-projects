@@ -1,25 +1,40 @@
-import { useState } from "react";
+import React, { Dispatch, useState } from "react";
 import InptOpt from "../InptOpt/InptOpt";
 
-type eduData = {
-  tite: string;
-  subtitle: string;
-  description: string;
-};
+import { eduData } from "../Education/Education";
+interface Props {
+  data: React.MutableRefObject<{
+    title: string;
+    subtitle: string;
+    description: string;
+}[]>;
+  id: number;
+  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-export default function InputWithOptions() {
-  const [eduDataVar, setEduData] = useState<eduData[]>([]);
-  const [showOpt, setShowOpt] = useState(false);
-  function showInputs() {
-    setShowOpt(!showOpt);
-    console.log(showOpt);
+export default function InputWithOptions({ data, id, setEditing }: Props) {
+  const [formData, setFormData] = useState({
+    title: "",
+    subtitle: "",
+    description: "",
+  });
+  function submitting() {
+    setEditing((prv) => !prv);
+    data.current[id] = { ...data.current[id], title: formData.title };
+
   }
+
   return (
-    <div className="btn-inp">
-      {showOpt && <InptOpt  />}
-      <button type="button" onClick={showInputs}>
-        New Item
-      </button>
+    <div className="inpt-comp">
+      <form onSubmit={submitting}>
+        <input
+          type="text"
+          placeholder="title"
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          value={formData.title}
+        />
+        <button type="submit">Save</button>
+      </form>
     </div>
   );
 }
