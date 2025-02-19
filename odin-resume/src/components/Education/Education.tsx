@@ -3,6 +3,7 @@ import "./Education.css";
 import NewItem from "../NewItem/NewItem";
 import InputWithOptions from "../InputWithOptions/InputWithOptions";
 import { useRef, useState } from "react";
+import { DiVim } from "react-icons/di";
 
 export interface eduData {
   title: string;
@@ -10,21 +11,38 @@ export interface eduData {
   description: string;
 }
 export default function Education() {
-  const [editing, setEditing] = useState(false);
+  const [adding, setAdding] = useState(false);
+  const[editing, setEditing] = useState(false)
   const dataRef = useRef([{ title: "", subtitle: "", description: "" }]);
-  let id: number = 0;
+  const id = useRef(0);
+  const editId = useRef(-1);
 
-  function editHandler() {
-    setEditing(!editing);
+  function addingHandler() {
+    setAdding(!adding);
   }
-  console.log(dataRef.current[id]);
+
+  function editingHandler(ndx: number)
+  {
+    editId.current = ndx;
+    setEditing(true);
+  }
+ 
+  console.log(`id value ${id.current}`);
+  console.log(dataRef.current[id.current - 1]);
   return (
     <div className="education">
-      {editing && (
-        <InputWithOptions data={dataRef} id={id} setEditing={setEditing} />
+      {dataRef.current[0].title.length > 0 &&
+        dataRef.current.map((elem, ndx) => {
+          return <div>
+            <button onClick={()=> editingHandler(ndx)}>Modify</button>
+          </div>;
+        })}
+      {editing && <InputWithOptions data={dataRef} id={id} setAdding={setAdding} editId={editId} setEditing={setEditing}/>}
+      {adding && (
+        <InputWithOptions data={dataRef} id={id} setAdding={setAdding} />
       )}
-      {!editing && (
-        <button type="button" onClick={editHandler}>
+      {!adding && (
+        <button type="button" onClick={addingHandler}>
           Add Education
         </button>
       )}

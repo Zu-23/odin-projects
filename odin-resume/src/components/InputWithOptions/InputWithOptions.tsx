@@ -8,20 +8,30 @@ interface Props {
     subtitle: string;
     description: string;
 }[]>;
-  id: number;
-  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  id: React.MutableRefObject<number>;
+  editId ?: React.MutableRefObject<number>;
+  setAdding: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditing?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function InputWithOptions({ data, id, setEditing }: Props) {
+export default function InputWithOptions({ data, id,editId, setEditing, setAdding }: Props) {
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
     description: "",
   });
   function submitting() {
-    setEditing((prv) => !prv);
-    data.current[id] = { ...data.current[id], title: formData.title };
-
+    if (editId!.current === -1)
+    {
+      setAdding((prv) => !prv);
+      data.current[id.current] = { ...data.current[id.current], title: formData.title };
+      id.current = id.current + 1;
+    }
+    else
+    {
+      setEditing?.(false);
+      data.current[editId!.current] = {...data.current[editId!.current], title: formData.title}
+    }
   }
 
   return (
