@@ -3,34 +3,46 @@ import InptOpt from "../InptOpt/InptOpt";
 
 import { eduData } from "../Education/Education";
 interface Props {
-  data: React.MutableRefObject<{
-    title: string;
-    subtitle: string;
-    description: string;
-}[]>;
+  data: React.MutableRefObject<
+    {
+      title: string;
+      subtitle: string;
+      description: string;
+    }[]
+  >;
   id: React.MutableRefObject<number>;
-  editId ?: React.MutableRefObject<number>;
+  editId?: React.MutableRefObject<number>;
   setAdding: React.Dispatch<React.SetStateAction<boolean>>;
-  setEditing?: React.Dispatch<React.SetStateAction<boolean>>
+  setEditing?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function InputWithOptions({ data, id,editId, setEditing, setAdding }: Props) {
+export default function InputWithOptions({
+  data,
+  id,
+  editId,
+  setEditing,
+  setAdding,
+}: Props) {
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
     description: "",
   });
   function submitting() {
-    if (editId!.current === -1)
-    {
+    if (editId?.current === undefined || editId?.current < 0) {
       setAdding((prv) => !prv);
-      data.current[id.current] = { ...data.current[id.current], title: formData.title };
+      data.current[id.current] = {
+        ...data.current[id.current],
+        title: formData.title,
+      };
       id.current = id.current + 1;
-    }
-    else
-    {
-      setEditing?.(false);
-      data.current[editId!.current] = {...data.current[editId!.current], title: formData.title}
+    } else {
+      setEditing?.((prv) => !prv);
+      data.current[editId!.current] = {
+        ...data.current[editId!.current],
+        title: formData.title,
+      };
+      editId!.current = -1;
     }
   }
 
