@@ -1,4 +1,4 @@
-import React, { Dispatch, useState } from "react";
+import React, { Dispatch, useRef, useState } from "react";
 import InptOpt from "../InptOpt/InptOpt";
 
 import { eduData } from "../Education/Education";
@@ -10,7 +10,6 @@ interface Props {
       description: string;
     }[]
   >;
-  id: React.MutableRefObject<number>;
   editId?: React.MutableRefObject<number>;
   setAdding: React.Dispatch<React.SetStateAction<boolean>>;
   setEditing?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +17,6 @@ interface Props {
 
 export default function InputWithOptions({
   data,
-  id,
   editId,
   setEditing,
   setAdding,
@@ -27,15 +25,19 @@ export default function InputWithOptions({
     title: "",
     subtitle: "",
     description: "",
-  });
+  }); 
+  const dummyTitle = useRef("");
+  if (editId?.current !== undefined && editId?.current >= 0)
+    dummyTitle.current = data.current[editId.current].title;
   function submitting() {
+    console.log(formData);
     if (editId?.current === undefined || editId?.current < 0) {
       setAdding((prv) => !prv);
-      data.current[id.current] = {
-        ...data.current[id.current],
+      data.current.push( {
         title: formData.title,
-      };
-      id.current = id.current + 1;
+        subtitle: formData.subtitle,
+        description: formData.description,
+      });
     } else {
       setEditing?.((prv) => !prv);
       data.current[editId!.current] = {
@@ -45,6 +47,12 @@ export default function InputWithOptions({
       editId!.current = -1;
     }
   }
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>)
+  {
+    dummyTitle.current = e.target.value;
+    setFormData({ ...formData, title: e.target.value })
+
+  }
 
   return (
     <div className="inpt-comp">
@@ -52,8 +60,26 @@ export default function InputWithOptions({
         <input
           type="text"
           placeholder="title"
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          value={formData.title}
+          required
+            value={ dummyTitle.current}
+
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          placeholder="subtitle"
+          onChange={(e) =>
+            setFormData({ ...formData, subtitle: e.target.value })
+          }
+          value={formData.subtitle}
+        />
+        <input
+          type="text"
+          placeholder="description"
+          onChange={(e) =>
+            setFormData({ ...formData, description: e.target.value })
+          }
+          value={formData.description}
         />
         <button type="submit">Save</button>
       </form>
