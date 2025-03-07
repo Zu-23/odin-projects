@@ -7,10 +7,3 @@
     margin-top: 0.3rem;
     padding: 1rem;
 }
-
-.edu-form
-{
-    display: flex;
-    flex-direction: column;
-    gap:2rem;
-}

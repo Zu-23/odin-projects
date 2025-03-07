@@ -1,13 +1,14 @@
 import "./Input.css";
 import { FaTrash } from "react-icons/fa";
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>{
   id: string;
   label: string;
   deletable?: boolean;
   handleDelete ?: () => void;}
 
-export default function Input({ id, label, deletable, handleDelete }: InputProps) {
+export default function Input({ id, label, deletable, handleDelete, ...rest }: InputProps)
+{
   return (
     <div className="input-container">
       <div className="align-trash">
@@ -20,7 +21,7 @@ export default function Input({ id, label, deletable, handleDelete }: InputProps
           </button>
         )}
       </div>
-      <input id={id} type="text" className="form-input" />
+      <input id={id} type="text" {...rest} className="form-input" />
     </div>
   );
 }

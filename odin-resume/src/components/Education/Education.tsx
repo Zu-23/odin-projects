@@ -1,66 +1,57 @@
-import Input from "../Input/Input";
+import React, { useState } from "react";
 import "./Education.css";
-import InputWithOptions from "../InputWithOptions/InputWithOptions";
-import { useRef, useState } from "react";
-import { DiVim } from "react-icons/di";
-export interface eduData {
-  title: string;
-  subtitle: string;
-  description: string;
-}
-export default function Education() {
-  const [adding, setAdding] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const dataRef = useRef([{ title: "", subtitle: "", description: "" }]);
-  const editId = useRef(-1);
-  const [testId, setTestId] = useState(-1);
-  console.log("rendered");
+import { EducationInput } from "./EducationInput";
+import { EducationData } from "./types";
+import { ProfileProps } from "../Profile/Profile";
 
-  console.log(dataRef.current);
-  function addingHandler() {
-    setAdding(!adding);
-    setEditing(false);
+export const Education = ({handleAllData} : ProfileProps) => {
+  const [educationData, setEducationData] = useState<EducationData[]>([]);
+  const [isCreate, setIsCreate] = useState(false);
+  const [editIndex, setEditIndex] = useState<number|null>(null);
+
+  const onCreate = (data: EducationData) => {
+    setEducationData((educationData) => [...educationData, data]);
+    handleAllData("education", educationData);
+    setIsCreate(false);
+  };
+
+  const onEdit = (data: EducationData) => {
+    if (editIndex === null ) return;
+
+    const newEducationData = [...educationData];
+
+    newEducationData.splice(editIndex, 1, data);
+
+    setEducationData(newEducationData);
+    setEditIndex(null);
   }
 
-  function editingHandler(ndx: number) {
-    //insted of using editing use ndx as condition to render input comp
-    editId.current = ndx;
-    setTestId(ndx); //so i can force render inputwithoption with clicking on multiple Modify button
-    setEditing(true);
-    if (adding) setAdding(false);
-  }
+  const handleAddNewClick = () => {
+    setIsCreate(true);
+    setEditIndex(null);
+  };
+
+  const handleEdit = (index: number) => () => {
+    setEditIndex(index);
+    setIsCreate(false);
+  };
+
   return (
     <div className="education">
-      {dataRef.current[1] !== undefined &&
-        //maybe a condition here
-        dataRef.current.map((elem, ndx) => {
-          console.log("why?");
-          return (
-            <div className="edu-elements">
-              {ndx > 0 && <h1>{elem.title}</h1>}
-              {ndx > 0 &&(
-                <button onClick={() => editingHandler(ndx)}>Modify</button>
-              )}
-
-              {editing && ndx === editId.current && (
-                <InputWithOptions
-                  data={dataRef}
-                  setAdding={setAdding}
-                  editId={editId}
-                  setEditing={setEditing}
-                />
-              )}
-            </div>
-          );
-        })}
-      {adding && <InputWithOptions data={dataRef} setAdding={setAdding} />}
-      {!adding && (
-        <button type="button" onClick={addingHandler}>
-          Add Education
-        </button>
-      )}
+      {educationData.map((data, index) => {
+        console.log(data);
+        return (
+          <div>
+            <p className="font-bold" key={index}>
+              {data.title}
+            </p>
+            {editIndex === index && <EducationInput handleSave={onEdit} initialData={data} />}
+            {editIndex !== index && <button onClick={handleEdit(index)}>EDIT</button>}
+          </div>
+        );
+      })}
+      {isCreate && <EducationInput handleSave={onCreate} />}
+      {!isCreate && <button onClick={handleAddNewClick}>ADD NEW</button>}
     </div>
   );
-}
-//create an add new button and pass to it the data with an id
-//create a button to add new item
+};

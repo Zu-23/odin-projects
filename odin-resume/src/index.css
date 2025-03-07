@@ -12,3 +12,28 @@
     flex-direction: column;
     margin-left: 10rem;
   }
+
+  .resume-and-accordion
+  {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .resume-section
+  {
+    width: 100%;
+  }
+
+  .resume-header
+  {
+    width: 100%;
+    height: 50px;
+    background-color: green;
+  } 
+  .accordion
+  {
+    display: flex;
+    flex-direction: column;
+  }
+
+  
