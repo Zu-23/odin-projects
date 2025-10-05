@@ -1,0 +1,35 @@
+
+:root
+{
+  --column-size: 50px;
+  --row-size: 50px;
+}
+.container
+{
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 1fr 1fr 5fr 1fr;
+  gap: 15px;
+}
+
+.container > div {
+  border: 1px solid blue;
+}
+
+
+
+.sidebar
+{
+  grid-row: 2 / 4;
+}
+
+.header
+{
+  grid-column: 1 / 3;
+}
+
+.footer 
+{
+  grid-column: 1 / 3;
+}
