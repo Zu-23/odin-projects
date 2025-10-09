@@ -1,0 +1,47 @@
+.nav
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-upper
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50%;
+    border: solid 1px black;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.nav-upper > i
+{
+    margin-left: 20px;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+}
+
+.search
+{
+    width:50%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-left: 20px;
+}
+.search > input
+{
+    background-color: #f0f0f0;
+    border: none;    
+    outline: none;
+    width: 100%;
+}
+
+
+
+
+

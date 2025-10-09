@@ -1,0 +1,26 @@
+.container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: 150px 1fr;
+  grid-template-areas:
+    "sidebar navbar"
+    "sidebar main";
+  height: 100vh;
+}
+
+.container > div {
+  border: solid red 1px;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: #0b78d1;
+}
+.navbar {
+  grid-area: navbar;
+  background: #fff;
+}
+.main {
+  grid-area: main;
+  background: #f3f5f9;
+}
