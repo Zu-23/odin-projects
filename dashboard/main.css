@@ -1,0 +1,149 @@
+.main .projects
+{
+    display: grid;
+    grid-template-columns: 3fr 3fr 2fr;
+    grid-template-rows: repeat(3, 250px);
+    grid-template-areas: 
+    "proj1 proj2 announcement"
+    "proj3 proj4 announcement"
+    "proj5 proj6 trending";
+    gap: 30px;
+    margin-left: 10px;
+}
+
+.main > p
+{
+    padding-left: 20px;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.announcement-title {
+  grid-column: 3;   
+  grid-row: 1;     
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-top: -35px;
+}
+
+
+.announcement
+{
+
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.anno-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+}
+.anno-title
+{
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.anno-content
+{
+    font-size: 14px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 5px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 20px;
+
+}
+.cards-icons
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 35px;
+    padding-top: 20px;
+    padding-right: 40px;
+}
+
+.cards-icons i
+{
+    cursor: pointer;
+}
+
+
+.card
+{
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-left: 6px solid #f6b000
+}
+
+.card-title
+{
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 5px 0;
+    padding: 10px;
+}
+
+.card-description
+{
+    font-size: 14px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 5px 0;
+    padding: 10px;
+
+}
+
+
+.proj1
+{
+    grid-area: proj1;
+
+}
+.proj2
+{
+    grid-area: proj2;
+}
+
+.proj3
+{
+    grid-area: proj3;
+}
+
+.proj4
+{
+    grid-area: proj4;
+}
+
+.proj5
+{
+    grid-area: proj5;
+}
+
+.proj6
+{
+    grid-area: proj6;
+}
+
+.announcement
+{
+    grid-area: announcement;
+
+}
+
+.trending
+{
+    grid-area: trending;
+    border: solid 5px #0000ff;
+    grid-row: 2 / span 3;
+}
+
